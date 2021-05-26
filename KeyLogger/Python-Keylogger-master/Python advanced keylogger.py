@@ -80,7 +80,6 @@ def write_file(count):
 	file = filepath + filename
 	delete_file.append(file)
 
-
 	with open(file, 'w') as fp:
 		fp.write(''.join(logged_data))
 	print('written all good')
