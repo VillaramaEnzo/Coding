@@ -55,11 +55,11 @@ class InstaBot:
 
         followers.sort()
 
-        filename = "followers - " + self.username + ".txt"
+        filename = self.date + " - followers - " + self.username + ".txt"
 
         with open(filename, 'w') as f:
 
-            f.write("List Length: %s \n\n" % len(followers))
+            f.write("Followers: %s \n\n" % len(followers))
 
             for item in followers:
                 f.write("%s \n" % item)
@@ -83,7 +83,7 @@ class InstaBot:
 
         with open(filename, 'w') as f:
 
-            f.write("List Length: %s \n\n" % len(following))
+            f.write("Following: %s \n\n" % len(following))
 
             for item in following:
                 f.write("%s \n" % item)
@@ -110,7 +110,7 @@ class InstaBot:
         not_following_back.sort()
 
         # Sends names to text file
-        filename = "notFollowing - " + self.username + ".txt"
+        filename = self.date + " - notFollowing - " + self.username + ".txt"
 
         with open(filename, 'w') as f:
 
@@ -154,6 +154,6 @@ password = getpass(prompt='Please enter password: ', stream=None)
 
 
 IBot = InstaBot(username, password)
-# IBot.get_followers()
-IBot.get_following()
+IBot.get_followers()
+# IBot.get_following()
 # IBot.get_unfollowers()
