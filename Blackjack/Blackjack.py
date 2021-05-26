@@ -76,6 +76,7 @@ class Chips:
 
 def take_bet(chips):
     while True:
+        print("Balance: {}".format(chips.total))
         try:
             chips.bet = int(input('How many chips would you like to bet?  '))
         except ValueError:
