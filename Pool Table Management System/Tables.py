@@ -8,6 +8,8 @@ class Table:
         self.tableNo = number
         self.inUse = False
         self.TCPH = 16     # Table Cost Per Hour
+        self.startTime = None
+        self.endTime = None
 
     def getTableNo(self):
 
@@ -19,10 +21,8 @@ class Table:
 
     def setStartTime(self):
 
-        time = dt.datetime.now().strftime('%Y/%m/%d - %I:%M')
-        print(time)
-
-        return time
+        self.startTime = dt.datetime.now().strftime('%Y/%m/%d - %I:%M')
+        print("Start Time: {}".format(self.startTime))
 
     def calcCosts(self, starttime, endtime):
 
