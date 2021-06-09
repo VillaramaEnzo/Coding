@@ -21,4 +21,4 @@ def findDuplicate(nums):
     return ptr1
 
 
-print(findDuplicate([4, 1, 3, 4, 2]))
+print(findDuplicate([4, 3, 3, 2, 3]))
