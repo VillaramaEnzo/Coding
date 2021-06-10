@@ -19,14 +19,31 @@ class Table:
 
         return self.inUse
 
+    def getTableCost(self):
+
+        return self.TCHP
+
+    def getStartTime(self):
+
+        return self.startTime
+
+    def getEndTime(self):
+
+        return self.endTime
+
     def setStartTime(self):
 
         self.startTime = dt.datetime.now().strftime('%Y/%m/%d - %I:%M')
         print("Start Time: {}".format(self.startTime))
 
-    def calcCosts(self, starttime, endtime):
+    def setEndTime(self):
 
-        return
+        self.endTime = dt.datetime.now().strtftime("%Y/%m/%d - %I:%M")
+        print("End Time: {}".format(self.endTime))
+
+    def calcCosts(self):
+
+        return self.endTime - self.startTime
 
 
 table = Table(2)
