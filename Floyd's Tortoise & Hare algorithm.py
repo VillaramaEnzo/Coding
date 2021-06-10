@@ -1,4 +1,3 @@
-
 def findDuplicate(nums):
 
     tortoise = nums[0]
