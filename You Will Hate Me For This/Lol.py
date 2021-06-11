@@ -9,7 +9,7 @@ sites = [
         "https://www.facebook.com", "https://www.instagram.com",
         "https://twitter.com", "https://discord.com", "https://www.auckland.ac.nz/en.html",
         "https://sso.canvaslms.com", "https://www.netflix.com", "https://www.tiktok.com/en",
-        "https://www.snapchat.com"
+        "https://www.snapchat.com", "https://www.messenger.com"
         ]
 
 
@@ -17,7 +17,7 @@ while True:
 
     num = random.randint(0, len(sites))
 
-    sleepTime = random.randint(0, 30)
+    sleepTime = random.randint(0, 60)
 
     wb.open_new(sites[num])
 
