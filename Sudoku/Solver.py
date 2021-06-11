@@ -29,7 +29,7 @@ def is_valid(board, num, pos):
 
     # Check Row
 
-    for i in range(9):
+    for i in range(len(board[0])):
 
         if board[pos[0]][i] == num and pos[1] != i:
 
@@ -37,7 +37,7 @@ def is_valid(board, num, pos):
 
     # Check Column
 
-    for i in range(9):
+    for i in range(len(board[0])):
 
         if board[i][pos[1]] == num and pos[0] != i:
 

@@ -1,5 +1,5 @@
 import Solver
-
+import Generator
 
 board_1 = [
      [3, 0, 6, 5, 0, 8, 4, 0, 0],
@@ -25,10 +25,12 @@ board_2 = [
     [0, 4, 9, 2, 0, 6, 0, 0, 7]
 ]
 
+board = Generator.makeBoard()
 
-Solver.print_board(board_1)
+Solver.print_board(board)
 
-print("\n", "- " * 15, "\n")
+print()
 
-Solver.solve(board_1)
-Solver.print_board(board_1)
+Solver.solve(board)
+
+Solver.print_board(board)

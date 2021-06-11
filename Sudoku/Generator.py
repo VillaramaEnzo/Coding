@@ -23,7 +23,7 @@ def generate(grid, q):
     return grid
 
 
-def main():
+def makeBoard():
 
     print("Level of Difficulty")
     print("     1. Beginner")
@@ -44,9 +44,11 @@ def main():
 
     board = generate([[0 for x in range(9)] for y in range(9)], q)
 
-    for i in board:
+    Solver.solve(board)
 
-        print(i)
+    Solver.print_board(board)
+
+    # return board
 
 
-main()
+makeBoard()
