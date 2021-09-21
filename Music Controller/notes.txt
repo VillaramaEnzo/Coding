@@ -1,0 +1,3 @@
+Following along w Tech w Tim tutorial
+
+-- Problem is it kept breaking w React integration not rendering properly
