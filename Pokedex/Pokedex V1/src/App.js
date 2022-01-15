@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Pokedex from "./Components/Pokedex";
 import Pokemon from "./Components/Pokemon";
 

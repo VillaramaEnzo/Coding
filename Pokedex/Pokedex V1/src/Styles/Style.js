@@ -1,4 +1,4 @@
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { alpha, makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => (
 
@@ -28,7 +28,7 @@ export const useStyles = makeStyles(theme => (
     searchContainer: {
 
       display: "flex",
-      backgroundColor: fade(theme.palette.common.white, 0.15),
+      backgroundColor: alpha(theme.palette.common.white, 0.15),
       paddingLeft: "10px",
       paddingRight: "10px",
       marginTop: "5px",

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, CircularProgress, Link, Typography } from '@material-ui/core';
+import { Button, Container, CircularProgress, Link, Typography } from '@material-ui/core';
 import axios from 'axios';
 
 import firstCharToUppercase from "./Helper Functions/Capitalise";
@@ -32,6 +32,9 @@ export default function Pokemon(props) {
     const fullImageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
     const { front_default } = sprites;
 
+
+
+
     return (
 
       <>
@@ -39,20 +42,27 @@ export default function Pokemon(props) {
               {`${id}.`} {firstCharToUppercase(name)}
               <img src={front_default} alt = {name}/>
             </Typography>
-            <img style={{ width: "300px", height: "300px" }} src={fullImageUrl}/>
+
+            <img alt = {name} style = {{ width: "300px", height: "300px" }} src = {fullImageUrl}/>
+
             <Typography variant="h3">Pokemon Info</Typography>
+
             <Typography>
               {"Species: "}
-              <Link href={species.url}>{species.name} </Link>
+              <Link href={species.url}> {species.name} </Link>
             </Typography>
+
             <Typography>Height: {height} </Typography>
             <Typography>Weight: {weight} </Typography>
+
             <Typography variant="h6"> Types:</Typography>
+
             {types.map((typeInfo) => {
               const { type } = typeInfo;
               const { name } = type;
               return <Typography key={name}> {`${name}`}</Typography>;
             })}
+
           </>
 
     )
@@ -60,11 +70,12 @@ export default function Pokemon(props) {
   }
 
   return (
-    <>
+
+    <Container>
 
       {pokemon === undefined && <CircularProgress />}
       {pokemon !== undefined && pokemon && generatePokemonJSX(pokemon)}
-      {pokemon === false && <Typography> Pokemon not found</Typography>}
+      {pokemon === false && <Typography> Pokemon not found </Typography>}
 
       {pokemon !== undefined && (
         <Button variant="contained" onClick={() => history.push("/")}>
@@ -72,7 +83,7 @@ export default function Pokemon(props) {
         </Button>
       )}
 
-    </>
+    </Container>
 
   );
 
