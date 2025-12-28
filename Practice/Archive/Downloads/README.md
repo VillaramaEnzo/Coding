@@ -1,0 +1,1 @@
+These are some projects I found online that I thought were interesting and useful for other projects I was/want to work on.
