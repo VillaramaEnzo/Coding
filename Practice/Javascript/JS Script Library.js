@@ -253,83 +253,214 @@ const sortArr = (arr) => {
 // 6.1 Bubble Sort
 const bubbleSort = (arr) => {
     
-    return arr.sort((a, b) => a - b);
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            }
+        }
+    }
+    return arr;
     
 }
 
 // 6.2 Quick Sort
 const quickSort = (arr) => {
     
-    return arr.sort((a, b) => a - b);
+    if (arr.length <= 1) {
+        return arr;
+    }
+    const pivot = arr[Math.floor(arr.length / 2)];
+    const left = arr.filter(num => num < pivot);
+    const middle = arr.filter(num => num === pivot);
+    const right = arr.filter(num => num > pivot);
+    return [...quickSort(left), ...middle, ...quickSort(right)];
 
 }
 
 // 6.3 Merge Sort
+// Helper function for merge sort
+const merge = (left, right) => {
+    let result = [];
+    let leftIndex = 0;
+    let rightIndex = 0;
+    
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex] < right[rightIndex]) {
+            result.push(left[leftIndex]);
+            leftIndex++;
+        } else {
+            result.push(right[rightIndex]);
+            rightIndex++;
+        }
+    }
+    
+    return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+}
+
 const mergeSort = (arr) => {
     
-    return arr.sort((a, b) => a - b);
+    if (arr.length <= 1) {
+        return arr;
+    }
+    const mid = Math.floor(arr.length / 2);
+    const left = arr.slice(0, mid);
+    const right = arr.slice(mid);
+    return merge(mergeSort(left), mergeSort(right));
     
 }
 
 // 6.4 Radix Sort
 const radixSort = (arr) => {
+    if (arr.length === 0) return arr;
     
-    return arr.sort((a, b) => a - b);
+    const max = Math.max(...arr.map(Math.abs));
+    const maxDigits = max === 0 ? 1 : Math.floor(Math.log10(max)) + 1;
     
+    for (let digit = 0; digit < maxDigits; digit++) {
+        const buckets = Array.from({ length: 10 }, () => []);
+        
+        for (let i = 0; i < arr.length; i++) {
+            const digitValue = Math.floor(Math.abs(arr[i]) / Math.pow(10, digit)) % 10;
+            buckets[digitValue].push(arr[i]);
+        }
+        
+        arr = [].concat(...buckets);
+    }
+    
+    return arr;
 }
 
 // 6.5 Selection Sort
 const selectionSort = (arr) => {
     
-    return arr.sort((a, b) => a - b);
+    for (let i = 0; i < arr.length - 1; i++) {
+        let min = i;
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] < arr[min]) {
+                min = j;
+            }
+        }
+        if (min !== i) {
+            [arr[i], arr[min]] = [arr[min], arr[i]];
+        }
+    }
+
+    return arr;
     
 }
 
 // 6.6 Insertion Sort
 const insertionSort = (arr) => {
     
-    return arr.sort((a, b) => a - b);
-    
+    for (let i = 1; i < arr.length; i++) {
+        let key = arr[i];
+        let j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+    return arr;
 }
 
 // 6.7 Heap Sort
+// Helper function for heap sort
+const heapify = (arr, n, i) => {
+    let largest = i;
+    const left = 2 * i + 1;
+    const right = 2 * i + 2;
+    
+    if (left < n && arr[left] > arr[largest]) {
+        largest = left;
+    }
+    
+    if (right < n && arr[right] > arr[largest]) {
+        largest = right;
+    }
+    
+    if (largest !== i) {
+        [arr[i], arr[largest]] = [arr[largest], arr[i]];
+        heapify(arr, n, largest);
+    }
+}
+
 const heapSort = (arr) => {
+    // Build max heap
+    for (let i = Math.floor(arr.length / 2) - 1; i >= 0; i--) {
+        heapify(arr, arr.length, i);
+    }
     
-    return arr.sort((a, b) => a - b);
+    // Extract elements from heap
+    for (let i = arr.length - 1; i > 0; i--) {
+        [arr[0], arr[i]] = [arr[i], arr[0]];
+        heapify(arr, i, 0);
+    }
     
+    return arr;
 }
 
 // 6.8 Shell Sort
 const shellSort = (arr) => {
     
-    return arr.sort((a, b) => a - b);
+    let gap = Math.floor(arr.length / 2);
+    
+    while (gap > 0) {
+        for (let i = gap; i < arr.length; i++) {
+            let temp = arr[i];
+            let j = i;
+            while (j >= gap && arr[j - gap] > temp) {
+                arr[j] = arr[j - gap];
+                j -= gap;
+            }
+            arr[j] = temp;
+        }
+        gap = Math.floor(gap / 2);
+    }
+    
+    return arr;
     
 }
 
 // 7. Create a function that filters out negative numbers
-
+function filterOutNegativeNumbers(arr) {
+    return arr.filter(num => num >= 0);
+}
 // 8. Remove spaces found in a string
+function removeSpaces(str) {
+    return str.replace(/\s/g, '');
+}
 
 // 9. Return a Boolean if a numeber if divisible by 10
 // Extension: returen if divisible by X
+function isDivisible(number, divisor = 10) {
 
+    return number % divisor === 0;
+}
 
 // 10. Return the number of vowels in a string
-
-
+function returnVowels(str) {
+    return str.match(/[aeiou]/gi).length;
+}
 
 // 11. Format words to Title Case
 function formatWords(str) {
+    if (!str || typeof str !== 'string') {
+        return '';
+    }
+    
+    const trimmed = str.trim();
+    if (trimmed === '') {
+        return '';
+    }
+    
+    const lowerCase = trimmed.toLowerCase();
+    const words = lowerCase.split(/\s+/).filter(word => word.length > 0);
 
-    const lowerCase = str.toLowerCase();
-    const words = lowerCase.split(" ");
-
-    return Array.map( 
-        
+    return words.map( 
         (word) => word.charAt(0).toUpperCase() + word.slice(1)
-        
     ).join(" ");
-
 }
 
 
@@ -347,12 +478,111 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+// Enable keypress events for stdin
+readline.emitKeypressEvents(process.stdin);
+
 // Helper function to prompt user
 const askQuestion = (question) => {
     return new Promise((resolve) => {
         rl.question(question, (answer) => {
             resolve(answer);
         });
+    });
+};
+
+// Helper function to prompt user with arrow key support
+const askQuestionWithArrows = (question, hasPrevPage, hasNextPage) => {
+    return new Promise((resolve) => {
+        // Pause readline to take control
+        rl.pause();
+        
+        // Enable raw mode for keypress events
+        const wasRaw = process.stdin.isRaw;
+        if (!wasRaw) {
+            process.stdin.setRawMode(true);
+        }
+        process.stdin.resume();
+        
+        let userInput = '';
+        let isResolved = false;
+        let lastKeyTime = 0;
+        let lastKeySequence = '';
+        
+        const cleanup = () => {
+            if (isResolved) return;
+            isResolved = true;
+            process.stdin.removeListener('keypress', onKeypress);
+            if (!wasRaw) {
+                process.stdin.setRawMode(false);
+            }
+            process.stdin.pause();
+            rl.resume();
+        };
+        
+        const onKeypress = (str, key) => {
+            if (isResolved) return;
+            
+            // Prevent duplicate keypress events (same key within 50ms)
+            const now = Date.now();
+            if (key.sequence === lastKeySequence && (now - lastKeyTime) < 50) {
+                return;
+            }
+            lastKeyTime = now;
+            lastKeySequence = key.sequence;
+            
+            // Handle arrow keys
+            if (key.name === 'left' && hasPrevPage) {
+                cleanup();
+                process.stdout.write('\n');
+                resolve('ARROW_LEFT');
+                return;
+            }
+            
+            if (key.name === 'right' && hasNextPage) {
+                cleanup();
+                process.stdout.write('\n');
+                resolve('ARROW_RIGHT');
+                return;
+            }
+            
+            // Handle Enter/Return
+            if (key.name === 'return' || key.name === 'enter') {
+                cleanup();
+                process.stdout.write('\n');
+                resolve(userInput.trim());
+                return;
+            }
+            
+            // Handle Ctrl+C
+            if (key.ctrl && key.name === 'c') {
+                cleanup();
+                process.stdout.write('\n');
+                process.exit();
+                return;
+            }
+            
+            // Handle backspace/delete
+            if (key.name === 'backspace' || key.name === 'delete') {
+                if (userInput.length > 0) {
+                    userInput = userInput.slice(0, -1);
+                    process.stdout.write('\b \b');
+                }
+                return;
+            }
+            
+            // Regular character input - only process if it's a single printable character
+            if (str && str.length === 1) {
+                const charCode = str.charCodeAt(0);
+                // Only handle printable ASCII characters (32-126)
+                if (charCode >= 32 && charCode <= 126) {
+                    userInput += str;
+                    process.stdout.write(str);
+                }
+            }
+        };
+        
+        process.stdout.write(question);
+        process.stdin.on('keypress', onKeypress);
     });
 };
 
@@ -517,11 +747,11 @@ const displayMenu = (currentPage = 0) => {
     if (totalPages > 1) {
         console.log('');
         if (currentPage > 0) {
-            console.log(`${optionNumber}. ← Previous page`);
+            console.log(`${optionNumber}. ← Previous page (or ← arrow key)`);
             optionNumber++;
         }
         if (currentPage < totalPages - 1) {
-            console.log(`${optionNumber}. Next page →`);
+            console.log(`${optionNumber}. Next page → (or → arrow key)`);
             optionNumber++;
         }
     }
@@ -681,17 +911,27 @@ const runCLI = async () => {
         const endIndex = Math.min(startIndex + functionsPerPage, functions.length);
         const pageFunctions = functions.slice(startIndex, endIndex);
         
-        // Calculate option numbers (Exit is displayed as 0, but internally it's the last option)
+        // Calculate option numbers
         let maxOption = pageFunctions.length;
         const hasPrevPage = totalPages > 1 && currentPage > 0;
         const hasNextPage = totalPages > 1 && currentPage < totalPages - 1;
         
         if (hasPrevPage) maxOption++;
         if (hasNextPage) maxOption++;
-        const exitOptionNum = maxOption; // Exit is the last numbered option (but displayed as 0)
         
-        const choice = await askQuestion('\nSelect an option (number, "s" to search, or "exit"/"0" to quit): ');
+        const choice = await askQuestionWithArrows('\nSelect an option (number, "s" to search, ←/→ arrows to navigate, or "exit"/"0" to quit): ', hasPrevPage, hasNextPage);
         const choiceLower = choice.toLowerCase().trim();
+        
+        // Handle arrow key navigation
+        if (choice === 'ARROW_LEFT' && hasPrevPage) {
+            currentPage--;
+            continue;
+        }
+        
+        if (choice === 'ARROW_RIGHT' && hasNextPage) {
+            currentPage++;
+            continue;
+        }
         
         // Handle search command
         if (choiceLower === 's') {
@@ -717,13 +957,6 @@ const runCLI = async () => {
         }
         
         const optionNum = parseInt(choice);
-        
-        // Check if it's Exit by option number
-        if (optionNum === exitOptionNum) {
-            console.log('\nExiting... Goodbye!');
-            rl.close();
-            break;
-        }
         
         if (isNaN(optionNum) || optionNum < 1 || optionNum > maxOption) {
             console.log('\nInvalid choice! Please try again.');
