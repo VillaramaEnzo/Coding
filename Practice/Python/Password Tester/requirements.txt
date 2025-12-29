@@ -1,0 +1,7 @@
+# No external dependencies required
+# This project uses only Python standard library modules:
+# - re (regular expressions)
+# - math (mathematical functions)
+
+# Python 3.7 or higher is required
+
